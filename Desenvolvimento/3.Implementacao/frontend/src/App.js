@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Provider } from './Context';
+
 import AllItems from './components/GetItem';
 import AddItem from './components/AddItem';
 import Actions from './Actions/Actions';

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import { AppContext } from '../Context';
+
 import Button from './Button';
 import Input from './Input';
 
