@@ -1,0 +1,152 @@
+import React from 'react';
+import api from '../service/api';
+
+class Actions extends React.Component {
+  state = {
+    items: []
+  }
+
+  // FETCH ITEMS FROM DATABASE
+  fetchItems = () => {
+    api.get('all-items.php')
+      .then(({ data }) => {
+        if (data.success === 1) {
+          this.setState({
+            items: data.items.reverse()
+          });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
+  // ON EDIT MODE
+  editMode = (id) => {
+    let items = this.state.items.map(item => {
+      if (item.id === id) {
+        item.isEditing = true;
+        return item;
+      }
+      item.isEditing = false;
+      return item;
+    });
+
+    this.setState({
+      items
+    });
+  }
+
+  //CANCEL EDIT MODE
+  cancelEdit = (id) => {
+    let items = this.state.items.map(item => {
+      if (item.id === id) {
+        item.isEditing = false;
+        return item;
+      }
+      return item
+
+    });
+    this.setState({
+      items
+    });
+  }
+
+  // UPDATE ITEM
+  handleUpdate = (id, nome, local, data, descricao, categoria, contido) => {
+    api.post('update-item.php',
+      {
+        id: id,
+        nome: nome,
+        local: local,
+        data: data,
+        descricao: descricao,
+        categoria: categoria,
+        contido: contido,
+      })
+      .then(({ data }) => {
+        if (data.success === 1) {
+          let items = this.state.items.map(item => {
+            if (item.id === id) {
+              item.nome = nome;
+              item.local = local;
+              item.data = data;
+              item.descricao = descricao;
+              item.categoria = categoria;
+              item.contido = contido;
+              item.isEditing = false;
+              return item;
+            }
+            return item;
+          });
+          this.setState({
+            items
+          });
+        }
+        else {
+          alert(data.msg);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+
+  // DELETE ITEM
+  handleDelete = (id) => {
+    let deleteItem = this.state.items.filter(item => {
+      return item.id !== id;
+    });
+
+    api.post('delete-item.php', {
+      id: id
+    })
+      .then(({ data }) => {
+        if (data.success === 1) {
+          this.setState({
+            items: deleteItem
+          });
+        }
+        else {
+          alert(data.msg);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  // INSERT ITEM
+  insertItem = (event, nome, local, data, descricao, categoria, contido) => {
+    event.preventDefault();
+    event.persist();
+    api.post('add-item.php', {
+      nome: nome,
+      local: local,
+      data: data,
+      descricao: descricao,
+      categoria: categoria,
+      contido: contido,
+    })
+      .then(function ({ data }) {
+        if (data.success === 1) {
+          this.setState({
+            items: [
+              { "id": data.id, "nome": nome, "local": local, "data": data, "descricao": descricao, "categoria": categoria, "contido": contido },
+              ...this.state.items
+            ]
+          });
+          event.target.reset();
+        }
+        else {
+          alert(data.msg);
+        }
+      }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+}
+
+export default Actions;

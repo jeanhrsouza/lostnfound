@@ -8,16 +8,14 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 require 'db_connection.php';
 
 $data = json_decode(file_get_contents("php://input"));
-if(isset($data->id) && is_numeric($data->id)){
+if (isset($data->id) && is_numeric($data->id)) {
     $delID = $data->id;
-    $deleteUser = mysqli_query($db_conn,"DELETE FROM `users` WHERE `id`='$delID'");
-    if($deleteUser){
-        echo json_encode(["success"=>1,"msg"=>"User Deleted"]);
+    $deleteItem = mysqli_query($db_conn, "DELETE FROM `item` WHERE `id`='$delID'");
+    if ($deleteItem) {
+        echo json_encode(["success" => 1, "msg" => "Item Deleted"]);
+    } else {
+        echo json_encode(["success" => 0, "msg" => "Item Not Found!"]);
     }
-    else{
-        echo json_encode(["success"=>0,"msg"=>"User Not Found!"]);
-    }
-}
-else{
-    echo json_encode(["success"=>0,"msg"=>"User Not Found!"]);
+} else {
+    echo json_encode(["success" => 0, "msg" => "Item Not Found!"]);
 }

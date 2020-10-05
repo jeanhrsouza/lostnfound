@@ -7,11 +7,10 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require 'db_connection.php';
 
-$allUsers = mysqli_query($db_conn,"SELECT * FROM `users`");
-if(mysqli_num_rows($allUsers) > 0){
-    $all_users = mysqli_fetch_all($allUsers,MYSQLI_ASSOC);
-    echo json_encode(["success"=>1,"users"=>$all_users]);
-}
-else{
-    echo json_encode(["success"=>0]);
+$allItems = mysqli_query($db_conn, "SELECT * FROM `item`");
+if (mysqli_num_rows($allItems) > 0) {
+    $all_items = mysqli_fetch_all($allItems, MYSQLI_ASSOC);
+    echo json_encode(["success" => 1, "items" => $all_items]);
+} else {
+    echo json_encode(["success" => 0]);
 }
