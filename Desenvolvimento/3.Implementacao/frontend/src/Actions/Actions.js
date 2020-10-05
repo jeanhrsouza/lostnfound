@@ -7,7 +7,6 @@ class Actions extends React.Component {
     items: []
   }
 
-  // FETCH ITEMS FROM DATABASE
   fetchItems = () => {
     api.get('all-items.php')
       .then(({ data }) => {
@@ -22,7 +21,6 @@ class Actions extends React.Component {
       })
   }
 
-  // ON EDIT MODE
   editMode = (id) => {
     let items = this.state.items.map(item => {
       if (item.id === id) {
@@ -38,7 +36,6 @@ class Actions extends React.Component {
     });
   }
 
-  //CANCEL EDIT MODE
   cancelEdit = (id) => {
     let items = this.state.items.map(item => {
       if (item.id === id) {
@@ -53,7 +50,6 @@ class Actions extends React.Component {
     });
   }
 
-  // UPDATE ITEM
   handleUpdate = (id, nome, local, date, descricao, categoria, contido) => {
     api.post('update-item.php',
       {
@@ -94,7 +90,6 @@ class Actions extends React.Component {
   }
 
 
-  // DELETE ITEM
   handleDelete = (id) => {
     let deleteItem = this.state.items.filter(item => {
       return item.id !== id;
@@ -118,7 +113,6 @@ class Actions extends React.Component {
       });
   }
 
-  // INSERT ITEM
   insertItem = (event, nome, local, date, descricao, categoria, contido) => {
     event.preventDefault();
     event.persist();
@@ -134,7 +128,15 @@ class Actions extends React.Component {
         if (data.success === 1) {
           this.setState({
             items: [
-              { "id": data.id, "nome": nome, "local": local, "data": date, "descricao": descricao, "categoria": categoria, "contido": contido },
+              {
+                "id": data.id,
+                "nome": nome,
+                "local": local,
+                "data": date,
+                "descricao": descricao,
+                "categoria": categoria,
+                "contido": contido
+              },
               ...this.state.items
             ]
           });
