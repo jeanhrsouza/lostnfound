@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { AppContext } from '../Context';
+import Button from './Button';
+import Input from './Input';
 
 class AddItem extends Component {
   static contextType = AppContext;
@@ -20,88 +22,49 @@ class AddItem extends Component {
     return (
       <form onSubmit={this.insertItem}>
         <div className="form-row">
-          <div className="form-group col">
-            <label
-              className="font-weight-bold">
-              Nome
-            </label>
-            <input
-              type="text"
-              name="nome"
-              ref={(val) => this.nome = val}
-              className="form-control"
-              placeholder="Nome"
-            />
-          </div>
-          <div className="form-group col">
-            <label
-              className="font-weight-bold">
-              Local
-            </label>
-            <input
-              type="text"
-              name="local"
-              ref={(val) => this.local = val}
-              className="form-control"
-              placeholder="Local"
-            />
-          </div>
 
-          <div className="form-group col">
-            <label
-              className="font-weight-bold">
-              Data
-            </label>
-            <input
-              type="date"
-              name="data"
-              ref={(val) => this.data = val}
-              className="form-control"
-            />
-          </div>
-          <div className="form-group col">
-            <label
-              className="font-weight-bold">
-              Descrição
-            </label>
-            <input
-              type="text"
-              name="descricao"
-              ref={(val) => this.descricao = val}
-              className="form-control"
-              placeholder="Descrição"
-            />
-          </div>
-
-          <div className="form-group col">
-            <label
-              className="font-weight-bold">
-              Categoria
-            </label>
-            <input
-              type="text"
-              name="categoria"
-              ref={(val) => this.categoria = val}
-              className="form-control"
-              placeholder="Categoria"
-            />
-          </div>
-          <div className="form-group col">
-            <label
-              className="font-weight-bold">
-              Contido
-            </label>
-            <input
-              type="text"
-              name="contido"
-              ref={(val) => this.contido = val}
-              className="form-control"
-              placeholder="Contido"
-            />
-          </div>
-
+          <Input
+            label='Objeto'
+            type='text'
+            name='nome'
+            inputRef={val => (this.nome = val)}
+          />
+          <Input
+            label='Local'
+            type='text'
+            name='local'
+            inputRef={val => (this.local = val)}
+          />
+          <Input
+            label='Data'
+            type='date'
+            name='data'
+            inputRef={val => (this.data = val)}
+          />
+          <Input
+            label='Descrição'
+            type='text'
+            name='descricao'
+            inputRef={val => (this.descricao = val)}
+          />
+          <Input
+            label='Categoria'
+            type='text'
+            name='categoria'
+            inputRef={val => (this.categoria = val)}
+          />
+          <Input
+            label='Contido'
+            type='text'
+            name='contido'
+            inputRef={val => (this.contido = val)}
+          />
           <div className="form-group col-12 text-right">
-            <button type="submit" className="btn btn-primary">Add Item</button>
+            <Button
+              type="submit"
+              className="btn btn-success"
+              text="Adicionar Item"
+            />
           </div>
         </div>
       </form>

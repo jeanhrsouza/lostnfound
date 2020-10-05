@@ -53,13 +53,13 @@ class Actions extends React.Component {
   }
 
   // UPDATE ITEM
-  handleUpdate = (id, nome, local, data, descricao, categoria, contido) => {
+  handleUpdate = (id, nome, local, date, descricao, categoria, contido) => {
     api.post('update-item.php',
       {
         id: id,
         nome: nome,
         local: local,
-        data: data,
+        data: date,
         descricao: descricao,
         categoria: categoria,
         contido: contido,
@@ -70,7 +70,7 @@ class Actions extends React.Component {
             if (item.id === id) {
               item.nome = nome;
               item.local = local;
-              item.data = data;
+              item.data = date;
               item.descricao = descricao;
               item.categoria = categoria;
               item.contido = contido;
@@ -118,13 +118,13 @@ class Actions extends React.Component {
   }
 
   // INSERT ITEM
-  insertItem = (event, nome, local, data, descricao, categoria, contido) => {
+  insertItem = (event, nome, local, date, descricao, categoria, contido) => {
     event.preventDefault();
     event.persist();
     api.post('add-item.php', {
       nome: nome,
       local: local,
-      data: data,
+      data: date,
       descricao: descricao,
       categoria: categoria,
       contido: contido,
@@ -133,7 +133,7 @@ class Actions extends React.Component {
         if (data.success === 1) {
           this.setState({
             items: [
-              { "id": data.id, "nome": nome, "local": local, "data": data, "descricao": descricao, "categoria": categoria, "contido": contido },
+              { "id": data.id, "nome": nome, "local": local, "data": date, "descricao": descricao, "categoria": categoria, "contido": contido },
               ...this.state.items
             ]
           });

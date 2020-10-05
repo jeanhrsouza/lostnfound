@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { AppContext } from '../Context';
+import Button from './Button';
+import Input from './Input';
 class GetUsers extends Component {
   static contextType = AppContext;
 
@@ -36,67 +38,60 @@ class GetUsers extends Component {
       return isEditing === true ? (
         <tr key={id}>
           <td>
-            <input
-              className="form-control"
-              type="text"
-              ref={(item) => this.name = item}
+            <Input
+              type='text'
+              inputRef={(item) => this.name = item}
               defaultValue={nome}
             />
           </td>
           <td>
-            <input
-              className="form-control"
-              type="text"
-              ref={(item) => this.local = item}
+            <Input
+              type='text'
+              inputRef={(item) => this.local = item}
               defaultValue={local}
             />
           </td>
-
           <td>
-            <input
-              className="form-control"
-              type="date"
-              ref={(item) => this.data = item}
+            <Input
+              type='date'
+              inputRef={(item) => this.data = item}
               defaultValue={data}
             />
           </td>
           <td>
-            <input
-              className="form-control"
-              type="text"
-              ref={(item) => this.descricao = item}
+            <Input
+              type='text'
+              inputRef={(item) => this.descricao = item}
               defaultValue={descricao}
             />
           </td>
 
           <td>
-            <input
-              className="form-control"
-              type="text"
-              ref={(item) => this.categoria = item}
+            <Input
+              type='text'
+              inputRef={(item) => this.categoria = item}
               defaultValue={categoria}
             />
           </td>
           <td>
-            <input
-              className="form-control"
-              type="text"
-              ref={(item) => this.contido = item}
+            <Input
+              type='text'
+              inputRef={(item) => this.contido = item}
               defaultValue={contido}
             />
           </td>
 
           <td>
-            <button
+            <Button
               className="btn btn-success mr-2"
-              onClick={() => this.handleUpdate(id)}>
-              Salvar
-            </button>
-            <button
+              onClick={() => this.handleUpdate(id)}
+              text="Salvar"
+            />
+            <Button
+              className="btn btn-light"
               onClick={() => this.context.cancelEdit(id)}
-              className="btn btn-light">
-              Cancelar
-            </button>
+              text="Cancelar"
+            />
           </td>
         </tr>
       ) : (
@@ -108,16 +103,16 @@ class GetUsers extends Component {
             <td>{categoria}</td>
             <td>{contido}</td>
             <td>
-              <button
-                className="btn btn-dark mr-2"
-                onClick={() => this.context.editMode(id)}>
-                Edit
-              </button>
-              <button
+              <Button
+                className="btn btn-primary mr-2"
+                onClick={() => this.context.editMode(id)}
+                text="Editar"
+              />
+              <Button
+                className="btn btn-danger"
                 onClick={() => this.context.handleDelete(id)}
-                className="btn btn-danger">
-                Delete
-              </button>
+                text="Deletar"
+              />
             </td>
           </tr>
         );
@@ -128,7 +123,7 @@ class GetUsers extends Component {
         <table className="table table-striped table-bordered">
           <thead>
             <tr>
-              <th>Nome</th>
+              <th>Objeto</th>
               <th>Local</th>
               <th>Data</th>
               <th>Descrição</th>
